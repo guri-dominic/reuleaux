@@ -19,6 +19,9 @@
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Vector3.h>
 
+#include <fmt/core.h>
+#include <fmt/format.h>
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <ctime>
@@ -63,7 +66,7 @@ ros::init(argc, argv, "inverse_workspace");
       h5_res.open();
       h5_res.h5ToResolution(res);
       h5_res.close();
-      file =  str(boost::format("%s_r%d_Inv_reachability.h5") % k.getRobotName() % res);
+      file =  fmt::format("{}_r{}_Inv_reachability.h5", k.getRobotName(), res);
       filename = path + file;
     }
   }

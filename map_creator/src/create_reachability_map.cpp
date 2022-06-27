@@ -15,6 +15,10 @@
 #include <map_creator/kinematics.h>
 #include<map_creator/hdf5_dataset.h>
 
+#include <boost/format.hpp>
+#include <fmt/core.h>
+#include <fmt/format.h>
+
 //struct stat st;
 
 typedef std::vector<std::pair< std::vector< double >, const std::vector< double >* > > MultiVector;
@@ -35,7 +39,7 @@ int main(int argc, char **argv)
   ros::Time startit = ros::Time::now();
   float resolution = 0.08;
   kinematics::Kinematics k;
-  std::string file = str(boost::format("%s_r%d_reachability.h5") % k.getRobotName() % resolution);
+  std::string file = fmt::format("{}_r{}_reachability.h5", k.getRobotName(), resolution);
   std::string path(ros::package::getPath("map_creator") + "/maps/");
   std::string filename;
   if (argc == 2)
@@ -47,7 +51,7 @@ int main(int argc, char **argv)
       return 0;
     }
     resolution = atof(argv[1]);
-    file = str(boost::format("%s_r%d_reachability.h5") % k.getRobotName() % resolution);
+    file = fmt::format("{}_r{}_reachability.h5", k.getRobotName(), resolution);
     filename = path + file;
   }
 

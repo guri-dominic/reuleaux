@@ -13,6 +13,9 @@
 #include <map_creator/kinematics.h>
 #include<map_creator/hdf5_dataset.h>
 
+#include <fmt/core.h>
+#include <fmt/format.h>
+
 //struct stat st;
 
 bool isFloat(std::string s)
@@ -32,8 +35,7 @@ int main(int argc, char **argv)
   float resolution = 0.08;
   kinematics::Kinematics k;
   std::string ext = ".h5";
-  std::string filename =
-      str(boost::format("%s_r%d_capability.h5") % k.getRobotName() % resolution);
+  std::string filename = fmt::format("{}_r{}_capability.h5", k.getRobotName(), resolution);
   if (argc == 2)
   {
     if (!isFloat(argv[1]))
@@ -43,8 +45,7 @@ int main(int argc, char **argv)
       return 0;
     }
     resolution = atof(argv[1]);
-    filename =
-        str(boost::format("%s_r%d_capability.h5") % k.getRobotName() % resolution);
+    filename = fmt::format("{}_r{}_capability.h5", k.getRobotName(), resolution);
   }
 
   else if (argc == 3)
